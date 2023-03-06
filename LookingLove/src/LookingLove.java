@@ -13,18 +13,18 @@ public class LookingLove {
 		this.cantidad = miembro.length;
 	}
 
-	public Persona recogeDatosPersona() {
+	public Persona recogeDatosPersona() {		
 		// ATRIBUTOS DE PERSONA
-		String nombre;
-		String apellidos;
-		int edad;
-		Enum<Sexo> sexo;
-		String ciudad;
-		Enum<Complexion> complexion;
-		Enum<ColorPelo> colorPelo;
-		double altura;
-		Enum<Orientacion> orientacion;
-		Enum<Aficiones> aficiones[];
+		String nombre="";
+		String apellidos="";
+		int edad=18;
+		Enum<Sexo> sexo=Sexo.HOMBRE;
+		String ciudad="";
+		Enum<Complexion> complexion = Complexion.ATLETA;
+		Enum<ColorPelo> colorPelo = ColorPelo.CASTAÑO;
+		double altura = 1.5;
+		Enum<Orientacion> orientacion = Orientacion.AMBOS;
+		Enum<Aficiones> aficiones[] = new Aficiones[Aficiones.values().length];
 		
 		boolean correcto=true;
 		Scanner sc=new Scanner (System.in);
@@ -34,6 +34,7 @@ public class LookingLove {
 			System.out.println("REGISTRANDO DATOS DE UNA PERSONA");
 			do {
 				System.out.println("Introduce nombre");
+			
 				nombre=sc.nextLine();
 			}while(nombre.equals(""));
 			
@@ -45,7 +46,7 @@ public class LookingLove {
 			do {
 				System.out.println("Introduce edad (desde 18 hasta 100 años)");
 				edad=sc.nextInt();
-			while(edad<18 || edad>100);
+			}while(edad<18 || edad>100);
 			
 			String sexoStr="";
 			do {
@@ -103,6 +104,7 @@ public class LookingLove {
 				System.out.println("¿Qué sexo quieres encontrar? (hombre/mujer/ambos)");
 				orientacionStr = sc.nextLine();
 			}while( orientacionStr!="hombre" && orientacionStr!="mujer" && orientacionStr!="ambos");
+			
 			if(orientacionStr.equals("hombre")) {
 				orientacion = Orientacion.HOMBRE;
 			}else if(orientacionStr.equals("mujer")) {
@@ -111,15 +113,22 @@ public class LookingLove {
 				orientacion = Orientacion.AMBOS;
 			}
 
+			int i=0;
 			for (Aficiones aficion: Aficiones.values()) { 
 			    System.out.println("Te gusta la aficion (si/no): "+aficion ); 
-			    //...
+			    String leGusta = sc.nextLine();
+			    if(leGusta.equalsIgnoreCase("si")) {
+			    	aficiones[i] = aficion;
+			    	i++;
+			    }
 			}
 			
 		}catch (Exception e) {
 			System.out.println("Error al introducir el dato");
 			sc.next();
 		}
+		Persona personaResultado = new Persona(nombre, apellidos, edad, sexo, ciudad, complexion, colorPelo, altura, orientacion, aficiones);
+		return personaResultado;
 	}
 	
 	// recibe una persona y lo añade al array miembros
@@ -206,6 +215,46 @@ public class LookingLove {
 		}
 		
 		return resultado;
+	}
+	
+	public int menu() {
+		int opcionElegida;
+		Scanner sc = new Scanner(System.in);
+		do {
+			
+			System.out.println("Elige Opción:/n"+
+					"1./tAñadir nueva Persona/n"+
+					"2./tBuscar emparejamientos/n"+
+					"3./tSalir del programa");
+			opcionElegida=sc.nextInt();
+			
+			if(opcionElegida<1 || opcionElegida>3) {
+				System.out.println("Error: Opción no disponible (introduce 1, 2 o 3)");
+			}
+		
+		} while(opcionElegida <1 || opcionElegida>3);
+		return opcionElegida;
+	}
+	
+	public int menuBuscarEmparejamiento() {
+		int opcionElegida;
+		Scanner sc = new Scanner(System.in);
+		do {
+			
+			System.out.println("¿Cómo desea buscar emparejamiento?:/n"+
+					"1./tFiltrando/n"+
+					"2./tPersona con más datos en común/n"+
+					"3./tPersonas con aficiones opuestas /n"+
+					"4./tBúsqueda aleatoria");
+			opcionElegida=sc.nextInt();
+			
+			if(opcionElegida<1 || opcionElegida>4) {
+				System.out.println("Error: Opción no disponible (introduce 1, 2, 3 o 4)");
+			}
+		
+		} while(opcionElegida <1 || opcionElegida>4);
+		return opcionElegida;
+		
 	}
 	
 }
