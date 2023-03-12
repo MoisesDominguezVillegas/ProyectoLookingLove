@@ -23,7 +23,7 @@ public class Persona {
 		this.sexo = Sexo.HOMBRE;
 		this.ciudad = "";
 		this.complexion = Complexion.ATLETA;
-		this.colorPelo = ColorPelo.CASTAÑO;
+		this.colorPelo = ColorPelo.CASTANIO;
 		this.altura = 1.5;
 		this.orientacion = Orientacion.AMBOS;
 		this.aficiones = new Aficiones[9];
